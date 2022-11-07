@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <body>
+        <span class="span__count">카운트 : 0</span>
+        <button id="btn">클릭</button>
+
+        <script>
+            let count = 0;
+            const btn = document.getElementById('btn');
+            const counter = document.getElementsByClassName('span__count')[0];
+            function handleClick() {
+                count = count + 1;
+                counter.innerText = `카운트 : ${count}`;
+                console.log(counter);
+            }
+            btn.addEventListener('click', handleClick);
+        </script>
+    </body>
+</html>
