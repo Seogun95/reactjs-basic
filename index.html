@@ -7,34 +7,26 @@
         <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
         <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
         <script type="text/babel">
-            //ReactJS의 기초이자 어렵게 하는 방법이지만, 앞으로 ReactJS를 사용하면서 아래와 같은 형태를 사용하지 않음. 특히 createElement는 절때 사용할 일 X
-            let count = 0;
             const root = document.getElementById('root');
-            function countUp() {
-                count = count += 1;
-                //UI를 업데이트 하기위해 re-render해야 한다.
-                // ReactDOM.render(<Container />, root);
-                render();
-            }
-
-            function render() {
-                ReactDOM.render(<Container />, root);
-            }
-
-            function Container() {
+            function App() {
+                const [counter, setCounter] = React.useState(0);
+                const onClick = () => {
+                    //modifier 함수를 사용하면 괄호 안에 부여하는 값은 자동으로 리렌더링 되게 된다.
+                    setCounter(counter + 1);
+                };
                 return (
                     <div>
-                        <h3 id='title'>카운트 : {count}</h3>
-                        <button id='btn' onClick={countUp}>
-                            클릭
-                        </button>
+                        <h3 id='title'>카운트 : {counter}</h3>
+                        <button onClick={onClick}>클릭</button>
                     </div>
                 );
             }
 
-            render();
+            ReactDOM.render(<App />, root);
 
             /*
+            ReactJS의 기초이자 어렵게 하는 방법이지만, 앞으로 ReactJS를 사용하면서 아래와 같은 형태를 사용하지 않음. 특히 createElement는 절때 사용할 일 X
+
             const h3 = React.createElement('h3', { class: 'span__count', onMouseOver: () => console.log('마우스 오버'), style: { backgroundColor: 'tomato' } }, '안녕하세요');
             const btn = React.createElement(
                 'button',
