@@ -9,14 +9,15 @@
         <script type="text/babel">
             const root = document.getElementById('root');
             function App() {
-                const [minute, setMinute] = React.useState();
-                /* 
+                const [minute, setMinute] = React.useState(0);
+                /*
                     js에서 사용한 event를 React에서도 사용가능하다.
                    이제 event.target.value를 modifier에 넣어 re-render되게 해준다.
                 */
                 const onChange = event => {
                     setMinute(event.target.value);
                 };
+                const reset = () => setMinute(0);
                 return (
                     <div>
                         {/*
@@ -26,12 +27,17 @@
                         https://thebook.io/006961/part01/ch03/04/04/
                         */}
 
-                        <h1 className='converter__container'>Converter</h1>
-                        <label htmlFor='minute'>분</label>
-                        <input value={minute} id='minute' placeholder='분' type='numer' onChange={onChange} />
-                        <h2>변환된 숫자 : '{minute}'</h2>
-                        <label htmlFor='houre'>시간</label>
-                        <input id='houre' placeholder='시간' type='numer' />
+                        <h1 className='converter__container'>Minutes to Hours Converter</h1>
+                        <div>
+                            <label htmlFor='minute'>Minute</label>
+                            <input value={minute} id='minute' placeholder='분' type='numer' onChange={onChange} />
+                        </div>
+                        <div>
+                            <label htmlFor='hour'>hour</label>
+                            {/*<input value={minute / 60} id='hour' placeholder='시간' type='numer' />*/}
+                            <input value={Math.round((minute * 100) / 60) / 100} id='hour' placeholder='시간' type='numer' />
+                        </div>
+                        <button onClick={reset}>초기화</button>
                     </div>
                 );
             }
