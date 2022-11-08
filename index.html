@@ -9,15 +9,22 @@
         <script type="text/babel">
             const root = document.getElementById('root');
             function App() {
-                const [minute, setMinute] = React.useState(0);
+                const [amount, setAmount] = React.useState(0);
+                const [flipped, setFlipped] = React.useState(false);
+
                 /*
                     js에서 사용한 event를 React에서도 사용가능하다.
                    이제 event.target.value를 modifier에 넣어 re-render되게 해준다.
                 */
                 const onChange = event => {
-                    setMinute(event.target.value);
+                    setAmount(event.target.value);
                 };
-                const reset = () => setMinute(0);
+                const reset = () => setAmount(0);
+                const onFlip = () => {
+                    reset();
+                    setFlipped(current => !current);
+                };
+
                 return (
                     <div>
                         {/*
@@ -30,14 +37,15 @@
                         <h1 className='converter__container'>Minutes to Hours Converter</h1>
                         <div>
                             <label htmlFor='minute'>Minute</label>
-                            <input value={minute} id='minute' placeholder='분' type='numer' onChange={onChange} />
+                            <input value={flipped ? Math.round(amount * 60) : amount} id='minute' placeholder='분' type='numer' onChange={onChange} disabled={flipped} />
                         </div>
                         <div>
                             <label htmlFor='hour'>hour</label>
                             {/*<input value={minute / 60} id='hour' placeholder='시간' type='numer' />*/}
-                            <input value={Math.round((minute * 100) / 60) / 100} id='hour' placeholder='시간' type='numer' />
+                            <input value={flipped ? amount : Math.round((amount * 100) / 60) / 100} id='hour' placeholder='시간' type='numer' onChange={onChange} disabled={!flipped} />
                         </div>
                         <button onClick={reset}>초기화</button>
+                        <button onClick={onFlip}>반전</button>
                     </div>
                 );
             }
