@@ -10,7 +10,7 @@
             const root = document.getElementById('root');
             function App() {
                 const [amount, setAmount] = React.useState(0);
-                const [flipped, setFlipped] = React.useState(false);
+                const [inverted, setInverted] = React.useState(false);
 
                 /*
                     js에서 사용한 event를 React에서도 사용가능하다.
@@ -20,9 +20,9 @@
                     setAmount(event.target.value);
                 };
                 const reset = () => setAmount(0);
-                const onFlip = () => {
+                const onInverted = () => {
                     reset();
-                    setFlipped(current => !current);
+                    setInverted(current => !current);
                 };
 
                 return (
@@ -37,15 +37,15 @@
                         <h1 className='converter__container'>Minutes to Hours Converter</h1>
                         <div>
                             <label htmlFor='minute'>Minute</label>
-                            <input value={flipped ? Math.round(amount * 60) : amount} id='minute' placeholder='분' type='numer' onChange={onChange} disabled={flipped} />
+                            <input value={inverted ? Math.round(amount * 60) : amount} id='minute' placeholder='분' type='numer' onChange={onChange} disabled={inverted} />
                         </div>
                         <div>
                             <label htmlFor='hour'>hour</label>
                             {/*<input value={minute / 60} id='hour' placeholder='시간' type='numer' />*/}
-                            <input value={flipped ? amount : Math.round((amount * 100) / 60) / 100} id='hour' placeholder='시간' type='numer' onChange={onChange} disabled={!flipped} />
+                            <input value={inverted ? amount : Math.round((amount * 100) / 60) / 100} id='hour' placeholder='시간' type='numer' onChange={onChange} disabled={!inverted} />
                         </div>
                         <button onClick={reset}>초기화</button>
-                        <button onClick={onFlip}>반전</button>
+                        <button onClick={onInverted}>{inverted ? '분 ➜ 시간 계산' : '시간 ➜ 분 계산'}</button>
                     </div>
                 );
             }
