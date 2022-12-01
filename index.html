@@ -6,27 +6,37 @@
         <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
         <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
         <script type="text/babel">
-            function Btn({ seogun, isTrue }) {
-                console.log(seogun, isTrue);
+            function Btn({ text, someEvents }) {
+                console.log(text, '이/가 랜더링 됨');
                 return (
                     <button
+                        onClick={someEvents}
                         style={{
                             backgroundColor: 'tomato',
                             padding: '1rem',
                             borderRadius: '1rem',
-                            fontSize: isTrue ? '1.2rem' : '0.8rem',
                         }}
                     >
-                        {seogun}
+                        {text}
                     </button>
                 );
             }
 
+            {
+                /* 
+                ReactJS에서 리랜더링 되지 않게 하려면 'React memo'를 사용할 수 있다.
+                */
+            }
+            const MemorizedBtn = React.memo(Btn);
+
             function App() {
+                const [value, setValue] = React.useState('Save Chages');
+                const chageValue = () => setValue('Revert Chages');
                 return (
                     <div>
-                        <Btn seogun='버튼 1' isTrue={false} />
-                        <Btn seogun='버튼 2' isTrue={true} />
+                        <MemorizedBtn text={value} someEvents={chageValue} />
+                        {/* ReactJS에서 리랜더링 되지 않게 하려면 'React memo'를 사용할 수 있다.*/}
+                        <MemorizedBtn text='버튼 2' />
                     </div>
                 );
             }
